@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light mode background color */
+body {
+  @apply bg-white;
+  /* Customize the color as needed */
+}
+
+/* Dark mode background color */
+.dark body {
+  @apply bg-[#252525];
+  /* Customize the color for dark mode */
+}
+
+
+@layer utilities {
+
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+@layer base {
+
+  html,
+  body {
+    @apply no-scrollbar;
+  }
+}

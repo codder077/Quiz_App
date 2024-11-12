@@ -1,0 +1,102 @@
+[
+    {
+        "question": "Which planet is known as the Red Planet?",
+        "options": ["Earth", "Venus", "Mars", "Jupiter"],
+        "answer": "Mars"
+    },
+    {
+        "question": "What is the capital of Australia?",
+        "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"],
+        "answer": "Canberra"
+    },
+    {
+        "question": "Which element has the chemical symbol 'O'?",
+        "options": ["Oxygen", "Osmium", "Oganesson", "Oxalate"],
+        "answer": "Oxygen"
+    },
+    {
+        "question": "In which year did World War I begin?",
+        "options": ["1912", "1914", "1916", "1918"],
+        "answer": "1914"
+    },
+    {
+        "question": "What is the largest mammal?",
+        "options": ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
+        "answer": "Blue Whale"
+    },
+    {
+        "question": "Who developed the theory of relativity?",
+        "options": ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Nikola Tesla"],
+        "answer": "Albert Einstein"
+    },
+    {
+        "question": "What is the main ingredient in guacamole?",
+        "options": ["Tomato", "Onion", "Avocado", "Pepper"],
+        "answer": "Avocado"
+    },
+    {
+        "question": "Which country is home to the kangaroo?",
+        "options": ["India", "Australia", "Brazil", "South Africa"],
+        "answer": "Australia"
+    },
+    {
+        "question": "Which continent is the largest by land area?",
+        "options": ["Africa", "Asia", "North America", "Europe"],
+        "answer": "Asia"
+    },
+    {
+        "question": "Which vitamin is known as ascorbic acid?",
+        "options": ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
+        "answer": "Vitamin C"
+    },
+    {
+        "question": "What is the capital city of Spain?",
+        "options": ["Barcelona", "Madrid", "Seville", "Valencia"],
+        "answer": "Madrid"
+    },
+    {
+        "question": "Which is the smallest planet in our solar system?",
+        "options": ["Earth", "Venus", "Mercury", "Mars"],
+        "answer": "Mercury"
+    },
+    {
+        "question": "How many continents are there in the world?",
+        "options": ["5", "6", "7", "8"],
+        "answer": "7"
+    },
+    {
+        "question": "Who painted the Mona Lisa?",
+        "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+        "answer": "Leonardo da Vinci"
+    },
+    {
+        "question": "What is the largest bone in the human body?",
+        "options": ["Femur", "Humerus", "Tibia", "Fibula"],
+        "answer": "Femur"
+    },
+    {
+        "question": "What is the main language spoken in Brazil?",
+        "options": ["Spanish", "Portuguese", "English", "French"],
+        "answer": "Portuguese"
+    },
+    {
+        "question": "Which ocean is the largest?",
+        "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+        "answer": "Pacific Ocean"
+    },
+    {
+        "question": "Which bird is often associated with delivering babies?",
+        "options": ["Sparrow", "Stork", "Eagle", "Owl"],
+        "answer": "Stork"
+    },
+    {
+        "question": "Who is the author of 'Romeo and Juliet'?",
+        "options": ["Mark Twain", "William Shakespeare", "J.K. Rowling", "Jane Austen"],
+        "answer": "William Shakespeare"
+    },
+    {
+        "question": "What is the hardest natural substance on Earth?",
+        "options": ["Iron", "Diamond", "Gold", "Graphite"],
+        "answer": "Diamond"
+    }
+]
