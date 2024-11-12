@@ -7,13 +7,13 @@ import questions from "../data/quizQuestions";
 const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
-    const [timer, setTimer] = useState(1000);
+    const [timer, setTimer] = useState(60);
     const [showResultModal, setShowResultModal] = useState(false);
     const [correct, setCorrect] = useState(0);
     const [incorrect, setIncorrect] = useState(0);
     const [unattempted, setUnattempted] = useState(0);
     const [quizQuestions, setQuizQuestions] = useState([]);
-    const [userAnswers, setUserAnswers] = useState([]); // New state for user answers
+    const [userAnswers, setUserAnswers] = useState([]); 
 
     const handleShowResult = () => setShowResultModal(true);
 
@@ -23,7 +23,7 @@ export const QuizProvider = ({ children }) => {
             .sort(() => 0.5 - Math.random())
             .slice(0, 6);
         setQuizQuestions(randomQuestions);
-        setUserAnswers(Array(6).fill(null)); // Initialize with null for 6 questions
+        setUserAnswers(Array(6).fill(null)); 
     }, []);
 
     const setUserAnswer = (index, answer) => {

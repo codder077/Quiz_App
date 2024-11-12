@@ -6,9 +6,9 @@ export async function POST(req) {
     try {
         const response = await axios.post("https://translation.googleapis.com/language/translate/v2", null, {
             params: {
-                q: text,                  // Text to translate
-                target: targetLang,       // Target language code
-                key: process.env.GOOGLE_API_KEY, // API Key
+                q: text,                 
+                target: targetLang,       
+                key: process.env.GOOGLE_API_KEY, 
             }
         });
 

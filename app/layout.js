@@ -10,7 +10,7 @@ const roboto = Roboto({
 })
 
 export const metadata = {
-  title: "Quiz20 - Next.js App",
+  title: "Quiz20",
   description: "A Next.js quiz application powered by Quiz20",
 };
 
