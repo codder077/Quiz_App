@@ -184,7 +184,7 @@ function Quiz() {
 
                 {/* Confirmation message */}
                 {showReportConfirmation && (
-                    <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
+                    <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
                         Report submitted successfully
                     </div>
                 )}
