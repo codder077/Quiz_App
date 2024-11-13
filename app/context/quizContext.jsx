@@ -7,7 +7,7 @@ import questions from "../data/quizQuestions";
 const QuizContext = createContext();
 
 export const QuizProvider = ({ children }) => {
-    const [timer, setTimer] = useState(1000);
+    const [timer, setTimer] = useState(60);
     const [showResultModal, setShowResultModal] = useState(false);
     const [correct, setCorrect] = useState(0);
     const [incorrect, setIncorrect] = useState(0);
