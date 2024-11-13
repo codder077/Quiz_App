@@ -1,7 +1,16 @@
 import React from 'react'
 
-function SubmitModal({ isOpen, onClose, showResult, unattempted }) {
+function SubmitModal({ isOpen, onClose, showResult, selectedAnswers }) {
     if (!isOpen) return null;
+
+    console.log(selectedAnswers);
+    let attempted=0;
+    selectedAnswers.map((answer)=>{
+        if(answer==false || answer==true){
+            attempted++;
+        }
+    })
+    const unattempted = (6-attempted);
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-50">

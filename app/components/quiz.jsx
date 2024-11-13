@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import ProgressBar from "./progressbar";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import SubmitModal from "./submitModal";
+import ReportModal from "./ReportModal"; 
 import { useQuizContext } from "../context/quizContext";
 import axios from "axios";
 import { MdGTranslate } from "react-icons/md";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { IoMdShare } from "react-icons/io";
+import { translate } from "../utils/translate";
+
 
 function Quiz() {
     const { setCorrect, setIncorrect, setUnattempted, handleShowResult, quizQuestions, showResultModal } = useQuizContext();
@@ -18,6 +21,25 @@ function Quiz() {
     const [showSubmitModal, setShowSubmitModal] = useState(false);
     const [translatedQuestions, setTranslatedQuestions] = useState([]);
     const [isTranslated, setIsTranslated] = useState(false);
+    const [showReportModal, setShowReportModal] = useState(false);
+    const [showReportConfirmation, setShowReportConfirmation] = useState(false);
+
+    const handleReportClick = () => {
+        setShowReportModal(true);
+    };
+
+    const handleReportSubmit = (selectedReason) => {
+        // Logic to submit the report goes here
+        console.log("Report submitted for reason:", selectedReason);
+
+        // Show confirmation message
+        setShowReportConfirmation(true);
+
+        // Hide confirmation after a short delay
+        setTimeout(() => {
+            setShowReportConfirmation(false);
+        }, 2000);
+    };
 
     const translateText = async (text, targetLang) => {
         try {
@@ -25,12 +47,13 @@ function Quiz() {
                 text: text,
                 targetLang: targetLang,
             });
-            return response.data.data.translations[0].translatedText;
+            return response.data.translatedText;
         } catch (error) {
             console.error("Translation error:", error);
             return text;
         }
     };
+    
 
     const translateQuestionsToHindi = async () => {
         try {
@@ -39,8 +62,7 @@ function Quiz() {
                 const translatedOptions = await Promise.all(
                     question.options.map(async (option) => await translateText(option, "hi"))
                 );
-                const translatedAnswer = await translateText(question.answer, "hi");
-                return { ...question, question: translatedQuestion, options: translatedOptions, answer: translatedAnswer };
+                return { ...question, question: translatedQuestion, options: translatedOptions };
             }));
             setTranslatedQuestions(translatedQuestions);
         } catch (error) {
@@ -48,9 +70,9 @@ function Quiz() {
         }
     };
 
-    useEffect(() => {
-        translateQuestionsToHindi();
-    }, []);
+    // useEffect(() => {
+    //     translateQuestionsToHindi();
+    // }, []);
 
     const calculateResults = () => {
         let correct = 0, incorrect = 0, unattempted = 0;
@@ -96,12 +118,13 @@ function Quiz() {
     };
 
     const handleOpenSubmitModal = () => {
-        calculateResults();
+        // calculateResults();
         setShowSubmitModal(true);
     };
     const handleCloseSubmitModal = () => setShowSubmitModal(false);
 
     const toggleTranslation = () => {
+        translateQuestionsToHindi();
         setIsTranslated((prev) => !prev);
     };
 
@@ -146,10 +169,25 @@ function Quiz() {
                         >
                             <MdGTranslate size={24} />
                         </button>
-                        <BsExclamationTriangle size={24} />
+                        <button onClick={handleReportClick}>
+                            <BsExclamationTriangle size={24} />
+                        </button>
 
                     </div>
                 </div>
+                {/* Render the report modal */}
+                <ReportModal
+                    isOpen={showReportModal}
+                    onClose={() => setShowReportModal(false)}
+                    onSubmit={handleReportSubmit}
+                />
+
+                {/* Confirmation message */}
+                {showReportConfirmation && (
+                    <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded">
+                        Report submitted successfully
+                    </div>
+                )}
 
                 <div className="flex-1 mt-7 px-1 pb-7 overflow-y-auto no-scrollbar">
                     <p className="mb-6 text-sm font-semibold md:text-md">{currentQuestionData?.question}</p>
@@ -194,7 +232,7 @@ function Quiz() {
                 isOpen={showSubmitModal}
                 onClose={handleCloseSubmitModal}
                 showResult={handleShowResult}
-                unattempted={selectedAnswers.filter((answer) => answer === null).length}
+                selectedAnswers={selectedAnswers}
             />
         </>
     );

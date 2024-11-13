@@ -1,19 +1,13 @@
-import axios from 'axios';
+import translate from 'translate-google';
 
 export async function POST(req) {
     const { text, targetLang } = await req.json();
 
     try {
-        const response = await axios.post("https://translation.googleapis.com/language/translate/v2", null, {
-            params: {
-                q: text,                 
-                target: targetLang,       
-                key: process.env.GOOGLE_API_KEY, 
-            }
-        });
-
+        const translatedText = await translate(text, { to: targetLang });
+        
         // Return the translated data
-        return new Response(JSON.stringify(response.data), { status: 200 });
+        return new Response(JSON.stringify({ translatedText }), { status: 200 });
     } catch (error) {
         console.error("Error translating text:", error);
 
@@ -21,3 +15,4 @@ export async function POST(req) {
         return new Response(JSON.stringify({ error: 'Translation failed' }), { status: 500 });
     }
 }
+
