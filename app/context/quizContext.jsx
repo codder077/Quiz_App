@@ -14,6 +14,7 @@ export const QuizProvider = ({ children }) => {
     const [unattempted, setUnattempted] = useState(0);
     const [quizQuestions, setQuizQuestions] = useState([]);
     const [userAnswers, setUserAnswers] = useState([]); 
+    const [paused,setPaused]=useState(false);
 
     const handleShowResult = () => setShowResultModal(true);
 
@@ -48,6 +49,8 @@ export const QuizProvider = ({ children }) => {
                 quizQuestions,
                 userAnswers,
                 setUserAnswer,
+                paused,
+                setPaused
             }}
         >
             {children}

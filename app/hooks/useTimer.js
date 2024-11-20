@@ -1,28 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
+import { useQuizContext } from "../context/quizContext";
 
-const useTimer = (
-    timer,
-    setTimer,
-    showResultModal,
-    handleShowResult
-) => {
+const useTimer = (timer, setTimer, showResultModal, handleShowResult) => {
+    const {paused}=useQuizContext();
     useEffect(() => {
-        if (showResultModal) return;
+        if (showResultModal || paused) return;
+
         if (timer <= 0) {
             setTimer(0);
-            handleShowResult()
+            handleShowResult();
         }
-    }, [timer, setTimer]);
+    }, [timer, setTimer, showResultModal, paused]);
 
     useEffect(() => {
-        if (showResultModal) return; // Do nothing if the result modal is shown
+        console.log(timer, paused);
+
+
+        // Stop timer updates if paused or modal is showing
+        if (showResultModal || paused) {
+            return;
+        }
 
         const countTimer = setTimeout(() => {
-            setTimer((prevTimer) => prevTimer - 1); // Decrease timer
+            setTimer((prevTimer) => Math.max(prevTimer - 1, 0)); // Prevent negative values
         }, 1000);
 
-        return () => clearTimeout(countTimer); // Cleanup the timeout
-    }, [timer, setTimer, showResultModal]);
+        return () => clearTimeout(countTimer); // Cleanup
+    }, [timer, setTimer, showResultModal, paused]);
 };
 
 export default useTimer;

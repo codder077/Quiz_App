@@ -9,10 +9,12 @@ import { MdGTranslate } from "react-icons/md";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { IoMdShare } from "react-icons/io";
 import { translate } from "../utils/translate";
+import Loader from "./Loader";
+import useTimer from "../hooks/useTimer";
 
 
 function Quiz() {
-    const { setCorrect, setIncorrect, setUnattempted, handleShowResult, quizQuestions, showResultModal } = useQuizContext();
+    const { setCorrect, setIncorrect, setUnattempted, handleShowResult, quizQuestions, showResultModal,paused,setPaused } = useQuizContext();
 
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -23,6 +25,11 @@ function Quiz() {
     const [isTranslated, setIsTranslated] = useState(false);
     const [showReportModal, setShowReportModal] = useState(false);
     const [showReportConfirmation, setShowReportConfirmation] = useState(false);
+    // const [paused, setPaused] = useState(false);
+    const [timer,setTimer] = useState(60);
+
+    // useTimer(timer, setTimer, showResultModal, handleShowResult);
+
 
     const handleReportClick = () => {
         setShowReportModal(true);
@@ -56,17 +63,23 @@ function Quiz() {
     
 
     const translateQuestionsToHindi = async () => {
+        setPaused(true); // Pause the timer before API call
         try {
-            const translatedQuestions = await Promise.all(quizQuestions.map(async (question) => {
-                const translatedQuestion = await translateText(question.question, "hi");
-                const translatedOptions = await Promise.all(
-                    question.options.map(async (option) => await translateText(option, "hi"))
-                );
-                return { ...question, question: translatedQuestion, options: translatedOptions };
-            }));
+            const translatedQuestions = await Promise.all(
+                quizQuestions.map(async (question) => {
+                    const translatedQuestion = await translateText(question.question, "hi");
+                    const translatedOptions = await Promise.all(
+                        question.options.map(async (option) => await translateText(option, "hi"))
+                    );
+                    return { ...question, question: translatedQuestion, options: translatedOptions };
+                })
+            );
             setTranslatedQuestions(translatedQuestions);
         } catch (error) {
             console.error("Error in translating questions:", error);
+        }
+        finally {
+            setPaused(false); // Resume the timer after API call
         }
     };
 
@@ -129,6 +142,13 @@ function Quiz() {
     };
 
     const currentQuestionData = isTranslated ? translatedQuestions[currentQuestion] : quizQuestions[currentQuestion];
+    // useEffect(() => {
+    //     if (currentQuestionData) {
+    //         setPaused(false);
+    //     } else {
+    //         setPaused(true);
+    //     }
+    // }, [currentQuestionData]);
 
     return (
         <>
@@ -193,7 +213,7 @@ function Quiz() {
                     <p className="mb-6 text-sm font-semibold md:text-md">{currentQuestionData?.question}</p>
 
                     <div className="space-y-4 flex flex-col">
-                        {currentQuestionData?.options.map((option, index) => (
+                        {currentQuestionData ? currentQuestionData?.options.map((option, index) => (
                             <button
                                 key={index}
                                 onClick={() => handleAnswerSelection(option)}
@@ -204,7 +224,7 @@ function Quiz() {
                                 </div>
                                 <span className="text-xs font-extralight">{option}</span>
                             </button>
-                        ))}
+                        )) : <Loader/>}
                     </div>
                 </div>
 
